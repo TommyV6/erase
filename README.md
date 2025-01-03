@@ -1,4 +1,4 @@
-### README Content (in English and Polish)
+### README English
 
 ```markdown
 # Device Block Eraser
