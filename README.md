@@ -18,19 +18,19 @@ Key Features:
 
 ### Usage
 ```bash
-sudo ./kasuj <device> <erase_size_MB> <skip_size_MB>
+sudo ./erase <device> <erase_size_MB> <skip_size_MB>
 ```
 
 Example:
 ```bash
-sudo ./kasuj /dev/sdd 1 10
+sudo ./erase /dev/sdd 1 10
 ```
 This command overwrites the first 1 MB of every 10 MB on the device `/dev/sdd`.
 
 ### Compilation
 Use the following command to compile:
 ```bash
-g++ -o kasuj kasuj.cpp
+g++ -o erase erase.cpp
 ```
 
 ---
@@ -50,20 +50,18 @@ Kluczowe funkcje:
 
 ### Użycie
 ```bash
-sudo ./kasuj <device> <erase_size_MB> <skip_size_MB>
+sudo ./erase <device> <erase_size_MB> <skip_size_MB>
 ```
 
 Przykład:
 ```bash
-sudo ./kasuj /dev/sdd 1 10
+sudo ./erase /dev/sdd 1 10
 ```
 Polecenie to nadpisze pierwsze 1 MB co każde 10 MB na urządzeniu `/dev/sdd`.
 
 ### Kompilacja
 Aby skompilować program, użyj polecenia:
 ```bash
-g++ -o kasuj kasuj.cpp
+g++ -o erase erase.cpp
 ```
 ``` 
-
-Czy mam coś poprawić lub dodać?
