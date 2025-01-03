@@ -64,4 +64,3 @@ Aby skompilować program, użyj polecenia:
 ```bash
 g++ -o erase erase.cpp
 ```
-``` 
