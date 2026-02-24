@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <chrono>
 #include <cstring>
 #include <cctype>
@@ -201,6 +202,21 @@ bool parse_size_mb(const char* raw_value, const char* field_name, bool allow_zer
 
     out_bytes = static_cast<size_t>(mb_value * bytes_per_mb);
     return true;
+}
+
+std::string format_bytes(unsigned long long bytes) {
+    static const char* units[] = {"B", "KB", "MB", "GB", "TB", "PB"};
+    double value = static_cast<double>(bytes);
+    size_t unit_index = 0;
+
+    while (value >= 1024.0 && unit_index < (sizeof(units) / sizeof(units[0])) - 1) {
+        value /= 1024.0;
+        ++unit_index;
+    }
+
+    std::ostringstream stream;
+    stream << std::fixed << std::setprecision(2) << value << " " << units[unit_index];
+    return stream.str();
 }
 
 void print_help(const char* program_name) {
@@ -517,6 +533,7 @@ int main(int argc, char* argv[]) {
     auto end_time = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> total_time = end_time - start_time;
     double avg_speed = total_time.count() > 0.0 ? (total_erased / (1024.0 * 1024.0)) / total_time.count() : 0.0;
+    const double erased_percentage = device_size > 0 ? (total_erased * 100.0) / device_size : 0.0;
 
     if (keep_running) {
         if (simulate_mode) {
@@ -528,6 +545,9 @@ int main(int argc, char* argv[]) {
         std::cout << "\nErasure interrupted by user." << std::endl;
     }
 
+    std::cout << "Erased data: " << format_bytes(total_erased)
+              << " (" << total_erased << " bytes, "
+              << std::fixed << std::setprecision(2) << erased_percentage << "%)" << std::endl;
     std::cout << "Total time: " << total_time.count() << " seconds" << std::endl;
     std::cout << "Average speed: " << avg_speed << " MB/s" << std::endl;
 
